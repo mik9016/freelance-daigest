@@ -54,6 +54,34 @@ const CONTRACT_TYPE_MAP: Record<string, string> = {
   CONTRACTING: "Contracting"
 };
 
+const BLOCK_TAGS = [
+  "address", "article", "aside", "blockquote", "dd", "div", "dl", "dt",
+  "figcaption", "figure", "footer", "h1", "h2", "h3", "h4", "h5", "h6",
+  "header", "hr", "li", "main", "nav", "ol", "p", "pre", "section",
+  "table", "tr", "ul"
+];
+
+function normalizeMultiline(text: string): string {
+  return text
+    .split("\n")
+    .map((line) => line.replace(/[^\S\n\t]+/g, " ").trim())
+    .filter((line) => line.length > 0)
+    .join("\n")
+    .trim();
+}
+
+function withBlockBreaks($: cheerio.CheerioAPI, root: cheerio.Cheerio<any>): void {
+  root.find("br").replaceWith("\n");
+  root.find(BLOCK_TAGS.join(",")).each((_i, el) => {
+    const $el = $(el);
+    $el.prepend("\n");
+    $el.append("\n");
+  });
+  root.find("td, th").each((_i, el) => {
+    $(el).append("\t");
+  });
+}
+
 function decodeEntities(s: string): string {
   return s
     .replace(/&amp;/g, "&")
@@ -81,8 +109,9 @@ function stripHtml(html: string): string {
   if (!html) return "";
   const $ = cheerio.load(html);
   $("script, style, noscript").remove();
+  withBlockBreaks($, $.root());
   const text = $("body").text() ?? $.html();
-  return text.replace(/\s+/g, " ").trim();
+  return normalizeMultiline(text);
 }
 
 function buildStartDate(item: FmProjectItem): string | null {
@@ -181,7 +210,8 @@ export function parseDetailPage(html: string | null | undefined): ParsedDetail {
     const $candidate = $(sel).first();
     if ($candidate.length) {
       descHtml = $candidate.html() ?? "";
-      descText = $candidate.text().replace(/\s+/g, " ").trim();
+      withBlockBreaks($, $candidate);
+      descText = normalizeMultiline($candidate.text());
       if (descText) break;
     }
   }
