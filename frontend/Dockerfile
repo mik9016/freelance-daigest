@@ -4,7 +4,7 @@ COPY package*.json ./
 RUN npm ci
 COPY tsconfig.json vite.config.ts index.html ./
 COPY src ./src
-COPY public ./public
+COPY public* ./public/
 ARG VITE_OIDC_AUTHORITY
 ARG VITE_OIDC_CLIENT_ID
 ARG VITE_OIDC_SCOPES=openid profile email
