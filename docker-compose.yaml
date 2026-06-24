@@ -28,8 +28,8 @@ services:
         VITE_OIDC_SCOPES: ${VITE_OIDC_SCOPES:-openid profile email}
         VITE_API_BASE_URL: /api
     container_name: freelance-daigest-frontend
-    ports:
-      - "${FRONTEND_HOST_PORT:-18080}:8080"
+    expose:
+      - "8080"
     depends_on:
       backend:
         condition: service_healthy
