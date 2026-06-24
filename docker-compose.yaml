@@ -4,7 +4,7 @@ services:
       context: ./backend
     container_name: freelance-daigest-backend
     ports:
-      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:${BACKEND_HOST_PORT:-3000}:3000"
     volumes:
       - ./data:/app/data
     env_file:
@@ -29,7 +29,7 @@ services:
         VITE_API_BASE_URL: /api
     container_name: freelance-daigest-frontend
     ports:
-      - "8080:8080"
+      - "${FRONTEND_HOST_PORT:-8080}:8080"
     depends_on:
       backend:
         condition: service_healthy
