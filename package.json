@@ -1,0 +1,24 @@
+{
+  "name": "freelance-daigest",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "backend:dev": "npm -w backend run dev",
+    "backend:build": "npm -w backend run build",
+    "backend:typecheck": "npm -w backend run typecheck",
+    "backend:test": "npm -w backend run test",
+    "frontend:dev": "npm -w frontend run dev",
+    "frontend:build": "npm -w frontend run build",
+    "frontend:typecheck": "npm -w frontend run typecheck",
+    "frontend:test": "npm -w frontend run test",
+    "typecheck": "npm run backend:typecheck && npm run frontend:typecheck",
+    "test": "npm run backend:test && npm run frontend:test"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1781907860932,
+      "tag": "0000_huge_invisible_woman",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1782251572488,
+      "tag": "0001_remarkable_albert_cleary",
+      "breakpoints": true
+    }
+  ]
+}

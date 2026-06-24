@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build output
+dist/
+**/dist/
+*.tsbuildinfo
+
+# Vite cache
+.vite/
+**/.vite/
+
+# Env files (real secrets — only .env.example committed)
+.env
+.env.local
+.env.*.local
+**/.env
+**/.env.local
+
+# SQLite data
+data/
+**/data/*.db
+**/data/*.db-shm
+**/data/*.db-wal
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Claude Code local state
+.claude/
+
+# Test coverage
+coverage/
+**/coverage/
